@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Covariance</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="covariance.js"></script>
+</head>
+<body>
+    <p>
+        This is an experiment in illustrating the variance and mean of a set of points in
+        the 2D plane. It is possible to add points to a set of points and the mean and variance
+        is updated and overlayed the data. In order to perform the experiments some statistics,
+        matrix computations will be touched upon.
+    </p>
+    <h2>The Normal Distribution</h2>
+    <p>
+        The <a href="http://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>
+        in one dimension is described by the probability distribution $$ f(x) = \frac{1}{\sigma
+        \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$ where \(\mu\) is the mean and \(\sigma\)
+        is the standard deviation. While the mean is easily understood, the standard deviation measures 
+        how spread the distribution is. A large \(\sigma\) implies that numbers further from the mean are
+        more likely.
+    </p>
+    <canvas id="gfx" width="600" height="400"></canvas>
+    <h4>
+        Average / mean</h4>
+    <table>
+        <tr>
+            <td>
+                Avg x
+            </td>
+            <td id="avgx">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Avg y
+            </td>
+            <td id="avgy">
+            </td>
+        </tr>
+    </table>
+    <h4>
+        Covariance matrix</h4>
+    <table>
+        <tbody>
+            <tr>
+                <td id="xx">
+                </td>
+                <td id="xy">
+                </td>
+            </tr>
+            <tr>
+                <td id="yx">
+                </td>
+                <td id="yy">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>
+        Todo</h2>
+    <ul>
+        <li>Add generator of points</li>
+        <li>Add clear of points</li>
+        <li>Add math explation of computations</li>
+        <li>Add explanation of "standard deviation computation" (square root of 2x2 matrix)
+            and drawing</li>
+        <li>Add computation of numbers inside sigma 1,2,3 etc</li>
+        <li>Different colors to std ellipses</li>
+        <li>Refactoring</li>
+    </ul>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initialize("gfx");
+        });
+    </script>
+</body>
+</html>
