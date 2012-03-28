@@ -1,15 +1,55 @@
 ﻿// references 'hmtl5.js'
+// references 'externals/src/sylvester.js'
+// references 'externals/src/matrix.js'
+// references 'externals/src/vector.js'
+
 var gfx;
+
+var DataAnalysis = function (dimensions) {
+    this.dimensions = dimensions;
+    this.mean = Sylvester.Vector.Zero(dimensions);
+    this.covariance = Sylvester.Matrix.Zero(dimensions, dimensions);
+    this.data = [];
+};
+
+DataAnalysis.prototype.add = function (point) {
+    var count = this.data.length;
+    var rowIndex, columnIndex, dataIndex;
+    this.data.push(point);
+    for (rowIndex = 0; rowIndex < this.dimensions; rowIndex++) {
+        var newMean = (this.mean.e(rowIndex + 1) * count + point[rowIndex]) / (count + 1);
+        this.mean.set_e(rowIndex + 1, newMean);
+    }
+    this.covariance = Sylvester.Matrix.Zero(this.dimensions, this.dimensions);
+    for (rowIndex = 0; rowIndex < this.dimensions; rowIndex++) {
+        for (columnIndex = rowIndex; columnIndex < this.dimensions; columnIndex++) {
+            var sum = 0.0;
+            for (dataIndex = 0; dataIndex < this.data.length; dataIndex++) {
+                var rowDiff = (this.data[dataIndex][rowIndex] - this.mean[rowIndex]);
+                var colDiff = (this.data[dataIndex][columnIndex] - this.mean[columnIndex]);
+                sum += rowDiff * colDiff;
+            }
+            this.covariance.set_e(rowIndex + 1, columnIndex + 1, sum / (count + 1));
+        }
+    }
+};
+
+DataAnalysis.prototype.get_mean = function (index) {
+    return this.mean.e(index);
+};
+
+
 function initialize(id) {
     var canvas = document.getElementById(id);
     var ctx = canvas.getContext("2d");
     var points = [];
-
+    var dataAnalysis = new DataAnalysis(2);
 
     $(canvas).click(function (e) {
         var x = Math.floor((e.pageX - $(canvas).offset().left));
         var y = Math.floor((e.pageY - $(canvas).offset().top));
 
+        dataAnalysis.add([x, y]);
         points.push({ x: x, y: y });
 
 
@@ -25,8 +65,8 @@ function initialize(id) {
             sumy += points[i].y;
             ctx.fillRect(points[i].x, points[i].y, 2, 2);
         }
-        var avgx = sumx / points.length;
-        var avgy = sumy / points.length;
+        var avgx = dataAnalysis.get_mean(1); // sumx / points.length;
+        var avgy = dataAnalysis.get_mean(2); // sumy / points.length;
 
         var xx = 0;
         var yy = 0;

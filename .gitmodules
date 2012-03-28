@@ -1,0 +1,3 @@
+[submodule "Covariance/externals/sylvester"]
+	path = Covariance/externals/sylvester
+	url = git@github.com:jacksondk/sylvester.git

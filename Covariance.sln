@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Covariance", ".", "{82D43CA6-AB0D-4009-A7F6-BCA6C41E1694}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Covariance", "Covariance\", "{35C1D4B7-CADF-4047-BD1E-03E868C7AE91}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/Covariance"
-		Debug.AspNetCompiler.PhysicalPath = "..\Covariance\"
+		Debug.AspNetCompiler.PhysicalPath = "Covariance\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Covariance\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/Covariance"
-		Release.AspNetCompiler.PhysicalPath = "..\Covariance\"
+		Release.AspNetCompiler.PhysicalPath = "Covariance\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Covariance\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
@@ -26,8 +26,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{82D43CA6-AB0D-4009-A7F6-BCA6C41E1694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82D43CA6-AB0D-4009-A7F6-BCA6C41E1694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C1D4B7-CADF-4047-BD1E-03E868C7AE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C1D4B7-CADF-4047-BD1E-03E868C7AE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
