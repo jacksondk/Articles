@@ -25,8 +25,8 @@ DataAnalysis.prototype.add = function (point) {
         for (columnIndex = rowIndex; columnIndex < this.dimensions; columnIndex++) {
             var sum = 0.0;
             for (dataIndex = 0; dataIndex < this.data.length; dataIndex++) {
-                var rowDiff = (this.data[dataIndex][rowIndex] - this.mean[rowIndex]);
-                var colDiff = (this.data[dataIndex][columnIndex] - this.mean[columnIndex]);
+                var rowDiff = (this.data[dataIndex][rowIndex] - this.mean.e(rowIndex+1));
+                var colDiff = (this.data[dataIndex][columnIndex] - this.mean.e(columnIndex+1));
                 sum += rowDiff * colDiff;
             }
             this.covariance.set_e(rowIndex + 1, columnIndex + 1, sum / (count + 1));
@@ -37,7 +37,9 @@ DataAnalysis.prototype.add = function (point) {
 DataAnalysis.prototype.get_mean = function (index) {
     return this.mean.e(index);
 };
-
+DataAnalysis.prototype.get_covariance = function () {
+    return this.covariance;
+}
 
 function initialize(id) {
     var canvas = document.getElementById(id);
@@ -58,29 +60,16 @@ function initialize(id) {
 
         ctx.fillStyle = "rgb(0,0,0)";
         var i = 0;
-        var sumx = 0;
-        var sumy = 0;
         for (i = 0; i < points.length; i++) {
-            sumx += points[i].x;
-            sumy += points[i].y;
             ctx.fillRect(points[i].x, points[i].y, 2, 2);
         }
         var avgx = dataAnalysis.get_mean(1); // sumx / points.length;
         var avgy = dataAnalysis.get_mean(2); // sumy / points.length;
-
-        var xx = 0;
-        var yy = 0;
-        var xy = 0;
-        for (i = 0; i < points.length; i++) {
-            var dx = (points[i].x - avgx);
-            var dy = (points[i].y - avgy);
-            xx += dx * dx;
-            yy += dy * dy;
-            xy += dy * dx;
-        }
-        xx /= points.length;
-        yy /= points.length;
-        xy /= points.length;
+        var covar = dataAnalysis.get_covariance();
+        
+        xx = covar.e(1,1);//  /= points.length;
+        yy = covar.e(2,2);//  /= points.length;
+        xy = covar.e(1,2);// /= points.length;
         ctx.fillStyle = "rgb(255,0,0)";
         ctx.fillRect(avgx, avgy, 2, 2);
 
