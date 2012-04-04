@@ -140,22 +140,17 @@
         However, for illustration purposes I need something that corresponds to the standard
         deviation. Thus, I need to compute the square root of \(C\). For an 2 by 2 matrix
         as \(C\) there exists an easy formula, see e.g. <a href="http://en.wikipedia.org/wiki/Square_root_of_a_2_by_2_matrix">
-                                                            this Wikepedia article</a>. If we define \(s = \sqrt{C_{11}C_{22}-C_{12}^2}\) 
-                                                            and \(t = \sqrt{C_{11}+C_{22}+2s}\) we have
-        $$S = 
-        \frac{1}{t}
-        \left[ \begin{array}{cc}
-        C_{11}+s & C_{12} \\
-        C_{12}   & C_{22}+s
-        \end{array}\right]
+            this Wikepedia article</a>. If we define the square root of the determinant
+        of \(C\) as \(s = \sqrt{C_{11}C_{22}-C_{12}^2}\). Observe that \(C\) is positive
+        definite which implies that the determinant is positive and that \(s\) is a positive
+        real number. Furthermore, define \(t = \sqrt{C_{11}+C_{22}+2s}\). Then we have $$S
+        = \frac{1}{t} \left[ \begin{array}{cc} C_{11}+s & C_{12} \\ C_{12} & C_{22}+s \end{array}\right]
         $$
     </p>
     <h2>
         Todo</h2>
     <ul>
-        <li>Add math explation of computations</li>
-        <li>Add explanation of "standard deviation computation" (square root of 2x2 matrix)
-            and drawing</li>
+        
         <li>Add computation of numbers inside sigma 1,2,3 etc</li>
     </ul>
     <script type="text/javascript">
