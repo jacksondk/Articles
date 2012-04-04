@@ -19,10 +19,15 @@ function initialize(id) {
     $("#generate").click(function (e) {
         var mx = parseFloat($("#avgx").val());
         var my = parseFloat($("#avgy").val());
+        var xx = parseFloat($("#xx").val());
+        var yy = parseFloat($("#yy").val());
+        var xy = parseFloat($("#xy").val());
+        var std = stdDev(xx, yy, xy);
         for (var i = 0; i < 1500; i++) {
-            var x = randomNormal(mx, 40),
-                y = randomNormal(my, 55);
-            dataAnalysis.add([x, y]);
+            var x = randomNormal(0, 1),
+                y = randomNormal(0, 1);
+
+            dataAnalysis.add([std.dxx * x + std.dxy * y + mx, std.dxy * x + std.dyy * y + my]);
 
         }
         drawMetrics();
@@ -37,7 +42,7 @@ function initialize(id) {
         var x = Math.floor((e.pageX - $(canvas).offset().left));
         var y = Math.floor((e.pageY - $(canvas).offset().top));
         var data = toData(x, y);
-        
+
         // Add to data analysis module
         dataAnalysis.add([data.x, data.y]);
         drawMetrics();
@@ -66,6 +71,17 @@ function initialize(id) {
         ctx.stroke();
     }
 
+    function stdDev(xx, yy, xy) {
+        var trace = xx + yy;
+        var determinant = xx * yy - xy * xy;
+        var s = Math.sqrt(determinant);
+        var t = Math.sqrt(trace + 2 * s);
+        var srxx = (xx + s) / t;
+        var sryy = (yy + s) / t;
+        var srxy = xy / t;
+        return { dxx: srxx, dyy: sryy, dxy: srxy };
+    }
+
     function drawMetrics() {
         // Get metrics
         var avgx = dataAnalysis.mean.e(1);
@@ -76,6 +92,7 @@ function initialize(id) {
         xy = dataAnalysis.covariance.e(1, 2);
 
         // Compute "square root" of covariance to get "std dev"
+        // source: http://en.wikipedia.org/wiki/Square_root_of_a_2_by_2_matrix
         var trace = xx + yy;
         var determinant = xx * yy - xy * xy;
         var s = Math.sqrt(determinant);

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿ddddddddddzdfdddd<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Covariance</title>
@@ -24,24 +24,24 @@
         in one dimension is described by the probability distribution $$ f(x) = \frac{1}{\sigma
         \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$ where \(\mu\) is the mean and \(\sigma\)
         is the standard deviation. While the mean is easily understood, the standard deviation
-        measures how spread the distribution is. A large \(\sigma\) implies that numbers
+        measures how spread out the distribution is. A large \(\sigma\) implies that numbers
         further from the mean are more likely.
     </p>
     <h2>
         The Interactive Experiment</h2>
     <p>
-        You can add points to the 'canvas' below. After adding a point the mean and variation
-        is recomputed and displayed. In the image you can see the mean displayed as a red
-        dot. The numerical values are shown in the first table below. The second table shows
-        the computed covariance.
+        You can add points to the 'canvas' below by clicking with the mouse. After adding
+        a point the mean and variation is recomputed and displayed. In the image you can
+        see the mean displayed as a red dot. The numerical values are shown in the first
+        table below. The second table shows the computed covariance.
     </p>
     <div style="height: 500px">
         <div style="float: left">
             <h3>
                 Points</h3>
             <canvas id="gfx" width="600" height="400">
-            You must use a browser which supports the canvas element.
-        </canvas>
+                You must use a browser which supports the canvas element.
+            </canvas>
         </div>
         <div style="float: right; width: 230px;">
             <h3>
@@ -50,7 +50,8 @@
                 The average or mean of the points is computed as
             </p>
             <style>
-                td input.value {
+                td input.value
+                {
                     text-align: right;
                     width: 4em;
                 }
@@ -58,7 +59,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 1ex"></th>
+                        <th style="width: 1ex">
+                        </th>
                         <th>
                             x
                         </th>
@@ -69,12 +71,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>
+                            &nbsp;
+                        </td>
                         <td>
                             <input type="text" id="avgx" class="value">
                         </td>
                         <td>
-                            <input type="text" id="avgy" class="value"/>
+                            <input type="text" id="avgy" class="value" />
                         </td>
                     </tr>
                 </tbody>
@@ -96,10 +100,10 @@
                             x
                         </th>
                         <td>
-                            <input type="text" id="xx" class="value"/>
+                            <input type="text" id="xx" class="value" />
                         </td>
                         <td>
-                            <input type="text" id="xy" class="value"/>
+                            <input type="text" id="xy" class="value" />
                         </td>
                     </tr>
                     <tr>
@@ -107,29 +111,52 @@
                             y
                         </th>
                         <td>
-                            <input id="yx" type="text" class="value"/>
+                            <input id="yx" type="text" class="value" />
                         </td>
                         <td>
-                            <input id="yy" type="text" class="value"/>
+                            <input id="yy" type="text" class="value" />
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <button id="generate">Generate</button>
-            <button id="clear">Clear</button>
+            <button id="generate">
+                Generate</button>
+            <button id="clear">
+                Clear</button>
         </div>
     </div>
     <h2>
+        Computations</h2>
+    <p>
+        The mean can be computed as $$\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$$ and $$\bar{y}
+        = \frac{1}{n} \sum_{i=1}^n y_i$$. However, we use an updating formula.
+    </p>
+    <p>
+        The elements of the covariance matrix are computed using the means via the following
+        formulas $$C_{11} = \frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})^2$$ $$C_{22} = \frac{1}{n}
+        \sum_{i=1}^n (y_i-\bar{x})^2$$ $$C_{12} = C_{21} = \frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})$$,
+    </p>
+    <p>
+        However, for illustration purposes I need something that corresponds to the standard
+        deviation. Thus, I need to compute the square root of \(C\). For an 2 by 2 matrix
+        as \(C\) there exists an easy formula, see e.g. <a href="http://en.wikipedia.org/wiki/Square_root_of_a_2_by_2_matrix">
+                                                            this Wikepedia article</a>. If we define \(s = \sqrt{C_{11}C_{22}-C_{12}^2}\) 
+                                                            and \(t = \sqrt{C_{11}+C_{22}+2s}\) we have
+        $$S = 
+        \frac{1}{t}
+        \left[ \begin{array}{cc}
+        C_{11}+s & C_{12} \\
+        C_{12}   & C_{22}+s
+        \end{array}\right]
+        $$
+    </p>
+    <h2>
         Todo</h2>
     <ul>
-        
-        <li>Add clear of points</li>
         <li>Add math explation of computations</li>
         <li>Add explanation of "standard deviation computation" (square root of 2x2 matrix)
             and drawing</li>
         <li>Add computation of numbers inside sigma 1,2,3 etc</li>
-        <li>Different colors to std ellipses</li>
-        <li>Refactoring</li>
     </ul>
     <script type="text/javascript">
         $(document).ready(function () {
